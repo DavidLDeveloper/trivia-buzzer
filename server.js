@@ -29,6 +29,7 @@ app.get("/health", (req, res) => {
 
 // ----------Sockets----------
 io.on("connection", (socket) => {
+  socket.request = null; // clear inital request from memory.
   console.log(`User ${socket.handshake.query?.name} has connected.`);
   socket.on("disconnect", () => {
     console.log(`User ${socket.handshake.query?.name} disconnected.`);
