@@ -29,7 +29,6 @@ app.get("/health", (req, res) => {
 
 // ----------Sockets----------
 io.on("connection", (socket) => {
-  socket.request = null; // clear inital request from memory.
   console.log(`User ${socket.handshake.query?.name} has connected.`);
   socket.on("disconnect", () => {
     console.log(`User ${socket.handshake.query?.name} disconnected.`);
@@ -46,6 +45,6 @@ io.on("connection", (socket) => {
 });
 
 // Run server
-server.listen(process.env.port || 3000, () => {
-  console.log(`App is listending on ${process.env.port || 3000}.`);
+server.listen(process.env.PORT || 3000, () => {
+  console.log(`App is listending on ${process.env.PORT || 3000}.`);
 });
