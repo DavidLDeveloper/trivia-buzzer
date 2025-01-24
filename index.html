@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TriviaBuzzer - Login</title>
+    <!-- <script src="/socket.io/socket.io.js"></script> -->
+  </head>
+  <body>
+    <p>Trivia Buzzer</p>
+    <form id="nameEntryForm" onSubmit="handleSubmit">
+      <input id="nameField" />
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      var input = document.getElementById("nameField")?.value;
+      window.location.replace(`/buzzer?name=${input}`);
+    }
+    var form = document.getElementById("nameEntryForm");
+    form.addEventListener("submit", handleSubmit);
+  </script>
+</html>

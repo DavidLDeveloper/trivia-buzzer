@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TriviaBuzzer - Controller</title>
+  </head>
+  <body>
+    <p>Controller</p>
+    <p id="message">Buzzer listening...</p>
+    <button onclick="handleReset()">Reset</button>
+  </body>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var frozen = false;
+    // Initialze socket connection.
+    var socket = io({ query: { name: "Controller" } });
+
+    // Socket Behavior
+    socket.on("freeze", (name) => {
+      frozen = true;
+      document.getElementById("message").innerText = `${name} buzzed in!`;
+    });
+
+    socket.on("unfreeze", () => {
+      document.getElementById("message").innerText = `Buzzer listening...`;
+    });
+
+    function handleReset() {
+      if (frozen) {
+        socket.emit("reset");
+      }
+    }
+  </script>
+</html>

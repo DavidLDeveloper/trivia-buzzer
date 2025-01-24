@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TriviaBuzzer</title>
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
+  <body>
+    <p id="nameField">Loading...</p>
+    <p id="message"></p>
+    <p id="time"></p>
+    <button id="buzzer" onClick="handleBuzz()">Buzz</button>
+  </body>
+  <script>
+    var query = new URLSearchParams(window.location.search);
+    var name = query.get("name");
+    var frozen = false;
+    // Initialze socket connection.
+    var socket = io({ query: { name } });
+
+    // latency??
+    var start = 0;
+    var end = 0;
+    // Populate page, handling missing params.
+    if (name !== "null") {
+      var nameField = (document.getElementById("nameField").innerText = name);
+    } else {
+      window.location.replace("/");
+    }
+
+    // Socket Behavior
+    socket.on("freeze", (name) => {
+      frozen = true;
+      end = Date.now();
+      document.getElementById("message").innerText = `${name} buzzed in!`;
+
+      if (start !== 0)
+        document.getElementById("time").innerText = `${end - start}ms`;
+    });
+
+    socket.on("unfreeze", () => {
+      frozen = false;
+      document.getElementById("message").innerText = ``;
+      document.getElementById("time").innerText = "";
+      start = 0;
+    });
+
+    function handleBuzz() {
+      if (!frozen) {
+        start = Date.now();
+        socket.emit("buzz", { name });
+      }
+
+      console.log("buzz?");
+    }
+  </script>
+</html>

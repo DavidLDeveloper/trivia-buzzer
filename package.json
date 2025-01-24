@@ -1,0 +1,20 @@
+{
+  "name": "buzzer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "bun server.js",
+    "dev:node": "node server.js",
+    "start": "bun bundle.js",
+    "build": "bun build --minify --target=bun --outfile=bundle.js server.js",
+    "build:node": "bun build --minify --target=node --outfile=bundle.js server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2",
+    "socket.io": "^4.8.1"
+  }
+}
