@@ -7,9 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "bun server.js",
     "dev:node": "node server.js",
-    "start": "bun bundle.js",
-    "build": "bun build --minify --target=bun --outfile=bundle.js server.js",
-    "build:node": "bun build --minify --target=node --outfile=bundle.js server.js"
+    "start": "bun ./dist/bundle.js",
+    "build": "bun build --minify --target=bun --outfile=dist/bundle.js server.js",
+    "build:node": "bun build --minify --target=node --outfile=dist/bundle.js server.js"
   },
   "author": "",
   "license": "ISC",
