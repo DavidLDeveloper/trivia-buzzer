@@ -5,9 +5,13 @@ Websocket based multi-user trivia buzzer using Bun runtime.
 ## Usage
 
 **Development Server:** `npm run dev`
+
 **Development Server(node):** `npm run dev:node`
+
 **Build:** `npm run build`
+
 **Build:** `npm run build:node`
+
 **Production Server:** `npm run start`
 
 Server will run on `process.env.PORT` or on port 3000.
