@@ -33,9 +33,38 @@ Game buzzer. Tap/click to buzz in. Locks until controller sends event.
 **Path:** `/control`
 Game controller. Reset control sends activation command to players.
 
+## Program Flow
+
+<pre>
+          ┌───────────────────http─response────────────────────┐         
+          │                                                    │         
+┌─────────┼──────────────────────────┐                         │         
+│ ┌───────┴────────┐    Server       │                         │         
+│ │  Static Views  │                 │                         │         
+│ │   ┌──────┐     │                 │                         │         
+│ │   │ Home │     │                 │                ┌────────▼────────┐
+│ │   │  '/' │     │                 │                │     Client      │
+│ │   └──────┘     │                 │                │ ┌─────────────┐ │
+│ │  ┌─────────┐   ◄─────────────────┼──http─request──┼─┼Route Request│ │
+│ │  │  Game   │   │                 │                │ └─────────────┘ │
+│ │  │'/buzzer'│   │   ┌───────────┐ │                │  ┌──────────┐   │
+│ │  └─────────┘   │   │   Event   ◄─┼──web─socket────┼──►Game Event│   │
+│ │ ┌───────────┐  │   │ Controller│ │                │  └──────────┘   │
+│ │ │Controller │  │   └───────────┘ │                └─────────────────┘
+│ │ │'/control' │  │                 │                                   
+│ │ └───────────┘  │                 │                                   
+│ └────────────────┘                 │                                   
+└────────────────────────────────────┘                                   
+</pre>
+
 ## Todo
 
 - Style views.
-- Test converting Routes and Websockets to Bun.serve()
+
 - Allow multiple rooms.
-- Optimize speed by converting to binary parser.
+- Enable controller view to see all connected user names.
+- Show green/red connection indicator.
+
+### Done
+
+- Converted routes and websockets to Bun.serve().
