@@ -10,26 +10,34 @@
     <p id="message">Buzzer listening...</p>
     <button onclick="handleReset()">Reset</button>
   </body>
-  <script src="/socket.io/socket.io.js"></script>
   <script>
     var frozen = false;
-    // Initialze socket connection.
-    var socket = io({ query: { name: "Controller" } });
-
-    // Socket Behavior
-    socket.on("freeze", (name) => {
-      frozen = true;
-      document.getElementById("message").innerText = `${name} buzzed in!`;
+    // Open Connection
+    var socket = new WebSocket("/socket?name=Controller");
+    socket.addEventListener("open", (event) => {
+      console.log("Websocket opened.");
+    });
+    socket.addEventListener("close", (event) => {
+      console.log("Websocket closed.");
     });
 
-    socket.on("unfreeze", () => {
-      document.getElementById("message").innerText = `Buzzer listening...`;
+    // Game events
+    socket.addEventListener("message", (event) => {
+      try {
+        message = JSON.parse(event.data);
+        if (message.type === "FREEZE") {
+          document.getElementById("message").innerText = `${name} buzzed in!`;
+        }
+        if (message.type === "UNFREEZE") {
+          document.getElementById("message").innerText = `Buzzer listening...`;
+        }
+      } catch {
+        console.log("Invalid event recieved from server.");
+      }
     });
 
     function handleReset() {
-      if (frozen) {
-        socket.emit("reset");
-      }
+      socket.send(JSON.stringify({ type: "RESET" }));
     }
   </script>
 </html>

@@ -5,16 +5,10 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun server.js",
-    "dev:node": "node server.js",
-    "start": "bun ./dist/bundle.js",
-    "build": "bun build --minify --target=bun --outfile=dist/bundle.js server.js",
-    "build:node": "bun build --minify --target=node --outfile=dist/bundle.js server.js"
+    "dev": "echo 'Running TriviaBuzzer on development server:' && bun server.js",
+    "start": "bun ./dist/server.js",
+    "build": "sh build.sh"
   },
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.21.2",
-    "socket.io": "^4.8.1"
-  }
+  "license": "ISC"
 }

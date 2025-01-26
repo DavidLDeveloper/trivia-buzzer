@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TriviaBuzzer</title>
-    <script src="/socket.io/socket.io.js"></script>
   </head>
   <body>
     <p id="nameField">Loading...</p>
@@ -16,43 +15,48 @@
     var query = new URLSearchParams(window.location.search);
     var name = query.get("name");
     var frozen = false;
-    // Initialze socket connection.
-    var socket = io({ query: { name } });
 
-    // latency??
-    var start = 0;
-    var end = 0;
     // Populate page, handling missing params.
     if (name !== "null") {
       var nameField = (document.getElementById("nameField").innerText = name);
     } else {
       window.location.replace("/");
     }
-
-    // Socket Behavior
-    socket.on("freeze", (name) => {
-      frozen = true;
-      end = Date.now();
-      document.getElementById("message").innerText = `${name} buzzed in!`;
-
-      if (start !== 0)
-        document.getElementById("time").innerText = `${end - start}ms`;
+    // Open Connection
+    var socket = new WebSocket("/socket?name=" + name);
+    socket.addEventListener("open", (event) => {
+      console.log("Websocket opened.");
+    });
+    socket.addEventListener("close", (event) => {
+      console.log("Websocket closed.");
     });
 
-    socket.on("unfreeze", () => {
-      frozen = false;
-      document.getElementById("message").innerText = ``;
-      document.getElementById("time").innerText = "";
-      start = 0;
+    // Game events
+    socket.addEventListener("message", (event) => {
+      try {
+        message = JSON.parse(event.data);
+        if (message.type === "FREEZE") {
+          frozen = true;
+          document.getElementById(
+            "message"
+          ).innerText = `${message.payload} buzzed in!`;
+        }
+        if (message.type === "UNFREEZE") {
+          frozen = false;
+          document.getElementById("message").innerText = ``;
+        }
+      } catch {
+        console.log("Invalid event recieved from server.");
+      }
     });
 
     function handleBuzz() {
-      if (!frozen) {
-        start = Date.now();
-        socket.emit("buzz", { name });
-      }
-
-      console.log("buzz?");
+      if (!frozen)
+        socket.send(
+          JSON.stringify({
+            type: "BUZZ",
+          })
+        );
     }
   </script>
 </html>
