@@ -69,6 +69,10 @@ const server = Bun.serve({
     "/": new Response(await Bun.file("./index.html").bytes()),
     "/buzzer": new Response(await Bun.file("./buzzer.html").bytes()),
     "/control": new Response(await Bun.file("./control.html").bytes()),
+    "/style.css": new Response(await Bun.file("./style.css").bytes()),
+    "/assets/buzzIn.wav": new Response(
+      await Bun.file("./assets/buzzIn.wav").bytes()
+    ),
   },
 });
 

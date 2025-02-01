@@ -4,12 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TriviaBuzzer</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <p id="nameField">Loading...</p>
-    <p id="message"></p>
-    <p id="time"></p>
-    <button id="buzzer" onClick="handleBuzz()">Buzz</button>
+    <div id="gameContainer" class="buzzer" onClick="handleBuzz()">
+      <h1 id="nameField">Loading...</h1>
+      <p id="message">Tap to buzz in</p>
+    </div>
   </body>
   <script>
     var query = new URLSearchParams(window.location.search);
@@ -22,6 +23,9 @@
     } else {
       window.location.replace("/");
     }
+    // Prepare Audio
+    var audio = new Audio("/assets/buzzIn.wav");
+
     // Open Connection
     var socket = new WebSocket("/socket?name=" + name);
     socket.addEventListener("open", (event) => {
@@ -40,10 +44,17 @@
           document.getElementById(
             "message"
           ).innerText = `${message.payload} buzzed in!`;
+          if (message.payload === nameField) {
+            changeColor("green");
+            audio.play();
+          } else {
+            changeColor("red");
+          }
         }
         if (message.type === "UNFREEZE") {
           frozen = false;
-          document.getElementById("message").innerText = ``;
+          changeColor("cornflowerblue");
+          document.getElementById("message").innerText = `Tap to buzz in`;
         }
       } catch {
         console.log("Invalid event recieved from server.");
@@ -57,6 +68,10 @@
             type: "BUZZ",
           })
         );
+    }
+    function changeColor(color) {
+      const container = document.getElementById("gameContainer");
+      container.style.backgroundColor = color;
     }
   </script>
 </html>

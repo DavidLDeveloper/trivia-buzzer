@@ -4,13 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TriviaBuzzer - Login</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
-  <body>
-    <p>Trivia Buzzer</p>
-    <form id="nameEntryForm" onSubmit="handleSubmit">
-      <input id="nameField" />
-      <button type="submit">Submit</button>
-    </form>
+
+    <div id="gameContainer">
+      <h1>Trivia Buzzer</h1>
+      <form id="nameEntryForm" onSubmit="handleSubmit">
+        <p>Name:</p>
+        <input id="nameField" />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
   </body>
   <script>
     function handleSubmit(e) {

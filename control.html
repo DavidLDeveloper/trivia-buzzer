@@ -26,6 +26,7 @@
       try {
         message = JSON.parse(event.data);
         if (message.type === "FREEZE") {
+          const name = message.payload;
           document.getElementById("message").innerText = `${name} buzzed in!`;
         }
         if (message.type === "UNFREEZE") {

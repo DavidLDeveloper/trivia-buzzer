@@ -1,0 +1,25 @@
+h1 {
+  color: whitesmoke;
+}
+body {
+  background-color: black;
+}
+
+#gameContainer {
+  background-color: cornflowerblue;
+  color: whitesmoke;
+  max-width: 300px;
+  border: whitesmoke 6px solid;
+  border-radius: 16px;
+  height: 80vh;
+  top: 50%;
+  bottom: 50%;
+  margin: auto;
+  padding: 10px;
+  &.buzzer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
