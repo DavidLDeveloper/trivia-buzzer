@@ -4,11 +4,11 @@ Websocket based multi-user trivia buzzer using Bun runtime.
 
 ## Usage
 
-**Development Server:** `npm run dev` -- run development server.
+**Development Server:** `npm run dev` -- Run development server.
 
 **Build:** `npm run build` -- Build app out to /dist folder.
 
-**Production Server:** `npm run start` -- run production server from /dist folder.
+**Production Server:** `npm run start` -- Run production server from /dist folder.
 
 Server will run on `process.env.PORT` or on port 3000.
 
