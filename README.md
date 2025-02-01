@@ -4,15 +4,11 @@ Websocket based multi-user trivia buzzer using Bun runtime.
 
 ## Usage
 
-**Development Server:** `npm run dev`
+**Development Server:** `npm run dev` -- run development server.
 
-**Development Server(node):** `npm run dev:node`
+**Build:** `npm run build` -- Build app out to /dist folder.
 
-**Build:** `npm run build`
-
-**Build:** `npm run build:node`
-
-**Production Server:** `npm run start`
+**Production Server:** `npm run start` -- run production server from /dist folder.
 
 Server will run on `process.env.PORT` or on port 3000.
 
@@ -59,12 +55,14 @@ Game controller. Reset control sends activation command to players.
 
 ## Todo
 
-- Style views.
-
+- Style Controller View
 - Allow multiple rooms.
 - Enable controller view to see all connected user names.
+- Log events in controller screen.
 - Show green/red connection indicator.
 
 ### Done
 
 - Converted routes and websockets to Bun.serve().
+- Styled Home and Game view.
+- Added sound.
